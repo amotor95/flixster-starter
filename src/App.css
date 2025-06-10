@@ -1,5 +1,12 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: row;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
 }
 
 .App-header {
@@ -10,6 +17,11 @@
   justify-content: space-evenly;
   color: white;
   padding: 20px;
+}
+
+.footer {
+  width: 100vw;
+  background-color: #888;
 }
 
 @media (max-width: 600px) {

@@ -1,0 +1,22 @@
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.sidebar-image {
+    object-fit: contain;
+    width: 15vw;
+    height: 15vh;
+}
+
+.sidebar-links {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.sidebar-links > a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}

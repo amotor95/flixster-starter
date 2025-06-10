@@ -1,0 +1,14 @@
+.loadmore-bar {
+    width: 100%;
+    background-color: #888;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.loadmore-button {
+    height: 40px;
+    width: 160px;
+}
