@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 
 const MovieBox = (mode) => {
     const [movies, setMovies] = useState({})
+    const [originalOrder, setOriginalOrder] = useState([])
     const [order, setOrder] = useState([])
     const [page, setPage] = useState(1)
     const [morePages, setMorePages] = useState(true)
@@ -47,6 +48,7 @@ const MovieBox = (mode) => {
                     newOrder.push(movie.id)
                 }
             })
+            setOriginalOrder([...originalOrder, ...newOrder])
             newMovies = {...movies, ...newMovies}
             setMovies(newMovies)
             newOrder = [...order, ...newOrder]
@@ -90,8 +92,12 @@ const MovieBox = (mode) => {
                 return right.vote_average-left.vote_average
             })
         }
-        const newOrder = movieEntries.map( (entry) => entry[0])
-        setOrder(newOrder)
+        if (sortMode==="none") {
+            setOrder(originalOrder)
+        } else {
+            const newOrder = movieEntries.map( (entry) => entry[0])
+            setOrder(newOrder)
+        }
     }
 
     useEffect(() => {
@@ -113,6 +119,7 @@ const MovieBox = (mode) => {
         if (!(term === searchQuery)) {
             setSortMode("none")
             setOrder([])
+            setOriginalOrder([])
             setMovies({})
             setPage(1)
             setSearchQuery(term)
@@ -131,21 +138,22 @@ const MovieBox = (mode) => {
     const toggleFavorite = (movieID) => {
         let newFavorites = [...favorites]
         if (newFavorites.includes(movieID)) {
-            newFavorites.filter( (id) => {return id !== movieID})
+            newFavorites = newFavorites.filter( (id) => {return id !== movieID})
+            console.log(movieID)
         } else {
             newFavorites.push(movieID)
         }
-        console.log(favorites)
+        setFavorites(newFavorites)
     }
 
     const toggleWatched = (movieID) => {
         let newWatched = [...watched]
         if (newWatched.includes(movieID)) {
-            newWatched.filter( (id) => {return id !== movieID})
+            newWatched = newWatched.filter( (id) => {return id !== movieID})
         } else {
             newWatched.push(movieID)
         }
-        console.log(watched)
+        setWatched(newWatched)
     }
 
     return (

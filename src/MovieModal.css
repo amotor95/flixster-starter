@@ -12,15 +12,18 @@
 .moviemodal-content {
     background-color: #888;
     margin: 100px auto;
-    padding: 20px;
+    /* padding: 20px; */
     border: 1px solid #888;
     width: 75vw;
     max-width: 100%;
     height: 80%;
-    display:flex;
-    flex-direction: row;
     position: relative;
     border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
 }
 
 .moviemodal-close-button {
@@ -31,19 +34,34 @@
 
 .moviemodal-content-image {
     object-fit: contain;
-    height: 100%;
-    width: 40%;
+    width: 60%;
+    height: 40%;
+    margin-top: 400px
+    /* top: 0; */
 }
 
-.moviemodal-content-right {
-    display:flex;
-    flex-direction: column;
+.genre-header {
+    margin-bottom: 5px;
+}
+
+.moviemodal-content-info-genres {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
     justify-content: center;
-    align-items: center;
+}
+
+.moviemodal-content-videos {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    height: 60%;
 }
 
 iframe {
     margin: 15px;
+    width: 100%;
+    height: 500px;
 }
 
 .trailer-select {
@@ -51,9 +69,9 @@ iframe {
     flex-direction: row;
     gap: 15px;
     justify-content: center;
+    padding-bottom: 15px;
 }
 
 .moviemodal-content-info {
-    width: 60%
+    width: 80%
 }
-
