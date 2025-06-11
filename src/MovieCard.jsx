@@ -16,7 +16,7 @@ const MovieCard = ( {id, movie, favorites, watched, toggleFavorite, toggleWatche
     return (
         <div className='moviecard'>
             <div className='moviecard-modalclickable' onClick={() => setShowModal(true)}>
-                <img className='moviecard-image' src={'https://image.tmdb.org/t/p/w500' + movie.poster_path}></img>
+                <img className='moviecard-image' alt={`${movie.title} poster`}src={'https://image.tmdb.org/t/p/w500' + movie.poster_path}></img>
                 <p className='moviecard-title'>{movie.title}</p>
                 <p className='moviecard-vote'>{movie.vote_average}</p>
             </div>
