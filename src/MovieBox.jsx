@@ -38,9 +38,12 @@ const MovieBox = () => {
             }
             let newMovies = {}
             let newOrder = []
+            // TMDB seems to be giving 1-2 repeats from the end of the last page on load more
             data.results.map( (movie) => {
-                newMovies[movie.id] = movie
-                newOrder.push(movie.id)
+                if (!order.includes(movie.id) && !newOrder.includes(movie.id)) {
+                    newMovies[movie.id] = movie
+                    newOrder.push(movie.id)
+                }
             })
             newMovies = {...movies, ...newMovies}
             setMovies(newMovies)
@@ -107,6 +110,7 @@ const MovieBox = () => {
     const updateSearchQuery = (term) => {
         if (!(term === searchQuery)) {
             setSortMode("none")
+            setOrder([])
             setMovies({})
             setPage(1)
             setSearchQuery(term)

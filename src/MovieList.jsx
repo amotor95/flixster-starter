@@ -5,7 +5,7 @@ const MovieList = ( {movies, order} ) => {
     return (
         <div className="movielist">
             { movies.length === 0 ? <p>No movies found!</p> : 
-            order.map( (id) => {
+            movies && order && order.map( (id) => {
                 // console.log(movies[id])
                 return <MovieCard key={id} movie={movies[id]}/>;
             })}

@@ -35,6 +35,25 @@
     width: 40%;
 }
 
+.moviemodal-content-right {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+iframe {
+    margin: 15px;
+}
+
+.trailer-select {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    justify-content: center;
+}
+
 .moviemodal-content-info {
     width: 60%
 }
+

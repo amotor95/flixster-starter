@@ -19,8 +19,42 @@ main {
   padding: 20px;
 }
 
-.footer {
-  width: 100vw;
+header {
+  display: flex;
+  flex-direction: row;
+  height: 200px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-text {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.flixster-title {
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+
+.banner {
+  font-size: 30px;
+}
+
+.header-image {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  object-fit: contain;
+  height: 200px;
+  width: 25%;
+}
+
+footer {
+  width: 100%;
   background-color: #888;
 }
 
