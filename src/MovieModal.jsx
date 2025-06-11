@@ -61,7 +61,7 @@ const MovieModal = ({movieID, closeModal}) => {
         <div className='moviemodal' onClick={(e) => closeModal(e)}>
             <div className='moviemodal-content'>
                 <button className='moviemodal-close-button' onClick={(e) => closeModal(e)}>×</button>
-                <img className='moviemodal-content-image' src={'https://image.tmdb.org/t/p/w500' + movie.poster_path}></img>
+                <img className='moviemodal-content-image' alt={`${movie.title} poster`} src={'https://image.tmdb.org/t/p/w500' + movie.poster_path}></img>
                     <div className='moviemodal-content-right'>
                     { trailers.length > 0 && trailers[currentTrailer] ?
                     <section className='movie-modal-content-videos'>
