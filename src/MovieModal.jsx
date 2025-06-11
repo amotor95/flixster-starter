@@ -65,7 +65,6 @@ const MovieModal = ({movieID, closeModal}) => {
                     <div className='moviemodal-content-right'>
                     { trailers.length > 0 && trailers[currentTrailer] ?
                     <section className='movie-modal-content-videos'>
-                        <p className='movie-modal-content-videos-numvideos'>Number of trailers: {trailers.length}</p>
                         <iframe alt={trailers[currentTrailer].name} src={`https://www.youtube.com/embed/${trailers[currentTrailer].key}`} allowFullScreen></iframe>
                         <div className='trailer-select'>
                             <button className='decrement-trailer-button' onClick={() => setCurrentTrailer(currentTrailer => {
@@ -75,7 +74,7 @@ const MovieModal = ({movieID, closeModal}) => {
                                     return trailers.length - 1;
                                 }
                             })}>&lt;</button>
-                            <p className='current-trailer'>{trailers[currentTrailer].name}</p>
+                            <p className='current-trailer'>{trailers[currentTrailer].name} ({currentTrailer+1}/{trailers.length})</p>
                             <button className='increment-trailer-button' onClick={() => {setCurrentTrailer(currentTrailer => ((currentTrailer + 1) % trailers.length))}}>&gt;</button>
                         </div>
                     </section>

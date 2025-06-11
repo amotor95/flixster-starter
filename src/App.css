@@ -4,11 +4,6 @@
   flex-direction: row;
 }
 
-main {
-  display: flex;
-  flex-direction: column;
-}
-
 .App-header {
   background-color: #282c34;
   display: flex;
@@ -51,6 +46,11 @@ header {
   object-fit: contain;
   height: 200px;
   width: 25%;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
 }
 
 footer {

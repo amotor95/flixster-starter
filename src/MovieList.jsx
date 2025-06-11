@@ -1,14 +1,16 @@
 import MovieCard from './MovieCard'
 import './MovieList.css'
 
-const MovieList = ( {movies, order} ) => {
+const MovieList = ( {movies, order, favorites, watched, toggleFavorite, toggleWatched} ) => {
+    // { mode === "now-playing" ? console.log(mode === "now-playing") : null }
     return (
         <div className="movielist">
-            { movies.length === 0 ? <p>No movies found!</p> : 
-            movies && order && order.map( (id) => {
-                // console.log(movies[id])
-                return <MovieCard key={id} movie={movies[id]}/>;
-            })}
+            {  
+                movies.length === 0 ? <p>No movies found!</p> : 
+                movies && order && order.map( (id) => {
+                    return <MovieCard key={id} movie={movies[id]} favorites={favorites} watched={watched} toggleFavorite={toggleFavorite} toggleWatched={toggleWatched}/>;
+                })
+            }
         </div>
     )
 }

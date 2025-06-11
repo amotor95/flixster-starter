@@ -5,13 +5,15 @@ import { useEffect, useState } from 'react'
 
 
 
-const MovieBox = () => {
+const MovieBox = (mode) => {
     const [movies, setMovies] = useState({})
     const [order, setOrder] = useState([])
     const [page, setPage] = useState(1)
     const [morePages, setMorePages] = useState(true)
     const [searchQuery, setSearchQuery] = useState("")
     const [sortMode, setSortMode] = useState("none")
+    const [favorites, setFavorites] = useState([])
+    const [watched, setWatched] = useState([])
 
     const fetchMovies = async () => {
         try {
@@ -126,11 +128,31 @@ const MovieBox = () => {
         updateSearchQuery("")
     }
 
+    const toggleFavorite = (movieID) => {
+        let newFavorites = [...favorites]
+        if (newFavorites.includes(movieID)) {
+            newFavorites.filter( (id) => {return id !== movieID})
+        } else {
+            newFavorites.push(movieID)
+        }
+        console.log(favorites)
+    }
+
+    const toggleWatched = (movieID) => {
+        let newWatched = [...watched]
+        if (newWatched.includes(movieID)) {
+            newWatched.filter( (id) => {return id !== movieID})
+        } else {
+            newWatched.push(movieID)
+        }
+        console.log(watched)
+    }
+
     return (
         <div className='moviebox'>
-            <SearchBar searchQuery={searchQuery} searchHandler={updateSearchQuery} sortMode={sortMode} sortHandler={updateSortMode} clearHandler={handleClear}/>
-            <MovieList movies={movies} order={order}/>
-            { (!Object.values(movies).length == 0 || !morePages) ? <LoadMoreBar loadMoreHandler={loadMore}/> : null }
+            { mode.mode === "now-playing" ? <SearchBar searchQuery={searchQuery} searchHandler={updateSearchQuery} sortMode={sortMode} sortHandler={updateSortMode} clearHandler={handleClear}/> : null }
+            <MovieList movies={movies} order={order} favorites={favorites} watched={watched} toggleFavorite={toggleFavorite} toggleWatched={toggleWatched}/>
+            { mode.mode === "now-playing" && (!Object.values(movies).length == 0 || !morePages) ? <LoadMoreBar loadMoreHandler={loadMore}/> : null }
         </div>
     )
 }
