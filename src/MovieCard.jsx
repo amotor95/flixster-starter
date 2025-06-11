@@ -1,7 +1,8 @@
 import './MovieCard.css'
 import { useState } from 'react'
 import MovieModal from './MovieModal'
-import {RiCloseLine} from 'react-icons/ri'
+import { BsEyeSlash, BsEyeFill } from "react-icons/bs";
+import { FaStar, FaRegStar } from "react-icons/fa";
 
 const MovieCard = ( {id, movie, favorites, watched, toggleFavorite, toggleWatched } ) => {
     const [showModal, setShowModal] = useState(false)
@@ -20,8 +21,8 @@ const MovieCard = ( {id, movie, favorites, watched, toggleFavorite, toggleWatche
                 <p className='moviecard-vote'>{movie.vote_average}</p>
             </div>
             <div className='moviecard-buttons'>
-                <button className='moviecard-favorite-button' onClick={() => toggleFavorite(id)}>{ favorites.includes(id) ? "☆" : "⭐" }</button>
-                <button className='moviecard-watched-button' onClick={() => toggleWatched(id)}>{ watched.includes(id) ? "☆" : "⭐" }</button>
+                <button className='moviecard-favorite-button' onClick={() => toggleFavorite(id)}>{ favorites.includes(id) ? <FaStar /> : <FaRegStar /> }</button>
+                <button className='moviecard-watched-button' onClick={() => toggleWatched(id)}>{ watched.includes(id) ? <BsEyeFill /> : <BsEyeSlash /> }</button>
             </div>
             { showModal ? <MovieModal movieID={movie.id} closeModal={closeModal} /> : null}
         </div>
