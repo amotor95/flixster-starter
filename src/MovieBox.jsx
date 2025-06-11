@@ -13,8 +13,41 @@ const MovieBox = (mode) => {
     const [morePages, setMorePages] = useState(true)
     const [searchQuery, setSearchQuery] = useState("")
     const [sortMode, setSortMode] = useState("none")
-    const [favorites, setFavorites] = useState([])
-    const [watched, setWatched] = useState([])
+    const [favorites, setFavorites] = useState([324544, 541671])
+    const [watched, setWatched] = useState([447273])
+    const [pageCleared, setPageCleared] = useState(false)
+
+    const fetchMovieList = async (movieIDList) => {
+        const fetchMovie = async (movieID) => {
+            const apiKey = import.meta.env.VITE_APP_API_KEY
+            const options = {
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: `Bearer ${apiKey}`
+                }
+            };
+            let response = null
+            response = await fetch(`https://api.themoviedb.org/3/movie/${movieID}?language=en-US`, options)
+            if (!response.ok) {
+                throw new Error('Failed to fetch movies')
+            }
+            const data = await response.json()
+            return data
+        }
+        const promises = movieIDList.map((movieID) => fetchMovie(movieID))
+        let movieList = await Promise.all(promises)
+        let movieDict = {}
+        movieList.map((movie) => movieDict[movie.id] = movie)
+        setMovies(movieDict)
+        if (mode.mode === "favorites") {
+            setOriginalOrder(favorites)
+            setOrder(favorites)
+        }  else if (mode.mode === "watched") {
+            setOriginalOrder(watched)
+            setOrder(watched)
+        }
+    }
 
     const fetchMovies = async () => {
         try {
@@ -100,14 +133,46 @@ const MovieBox = (mode) => {
         }
     }
 
+    // useEffect(() => {
+    //     if (mode.mode === "now-playing") {
+    //         updateSearchQuery("")
+    //     }
+    // }, [mode])
+
     useEffect(() => {
-        fetchMovies()
-        sortMovies()
+        if (mode.mode === "now-playing") {
+            setOrder([])
+            setOriginalOrder([])
+            setMovies({})
+            setSortMode("none")
+            setPage(1)
+            setSearchQuery("")
+            setPageCleared(true)
+        }
+    }, [mode])
+
+    // By waiting for order to trigger and then fetching movies it assures the order is cleared for swap to favorites/watched -> now-playing
+    // Also used a pageCleared state to only fetchMovies() once relevant variables are cleared
+    useEffect(() => {
+        if (mode.mode === "now-playing" && order.length === 0) {
+            if (pageCleared) {
+                fetchMovies()
+            }
+            setPageCleared(false)
+        } else if (mode.mode === "favorites") {
+            fetchMovieList(favorites)
+        } else if (mode.mode === "watched") {
+            fetchMovieList(watched)
+        }
+    }, [mode, pageCleared])
+
+    useEffect(() => {
+        fetchMovies();
     }, [page, searchQuery])
 
     useEffect(() => {
         sortMovies()
-    }, [sortMode])
+    }, [sortMode, movies])
 
     const loadMore = () => {
         setPage( (oldPage) => {

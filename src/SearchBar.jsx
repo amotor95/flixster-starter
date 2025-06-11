@@ -6,7 +6,7 @@ const SearchBar = ({ searchQuery, searchHandler, sortMode, sortHandler, clearHan
     return (
         <div className="searchbar">
             <div className='searchbar-searchbar'>
-                <input className='searchbar-input' onChange={(e) => setSearchText(e.target.value)} value={searchText} placeholder="Search..."></input>
+                <input className='searchbar-input' onKeyDown={(e) => { if (e.key === "Enter") {searchHandler(searchText)}}} onChange={(e) => setSearchText(e.target.value)} value={searchText} placeholder="Search..."></input>
                 <button className='searchbar-submit' onClick={() => searchHandler(searchText)}>Search</button>
                 { !(searchQuery === "") ? <button className='searchbar-clear' onClick={() => {clearHandler(); setSearchText("")}}>Clear</button> : null }
             </div>
