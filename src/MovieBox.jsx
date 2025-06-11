@@ -3,7 +3,7 @@ import MovieList from './MovieList'
 import LoadMoreBar from './LoadMoreBar'
 import { useEffect, useState } from 'react'
 
-
+//review1-branch
 
 const MovieBox = (mode) => {
     const [movies, setMovies] = useState({})
@@ -49,7 +49,7 @@ const MovieBox = (mode) => {
         }
     }
 
-    const fetchMovies = async () => {
+    const fetchSearchMovies = async () => {
         try {
             const apiKey = import.meta.env.VITE_APP_API_KEY
             const options = {
@@ -156,7 +156,7 @@ const MovieBox = (mode) => {
     useEffect(() => {
         if (mode.mode === "now-playing" && order.length === 0) {
             if (pageCleared) {
-                fetchMovies()
+                fetchSearchMovies()
             }
             setPageCleared(false)
         } else if (mode.mode === "favorites") {
@@ -167,7 +167,7 @@ const MovieBox = (mode) => {
     }, [mode, pageCleared])
 
     useEffect(() => {
-        fetchMovies();
+        fetchSearchMovies();
     }, [page, searchQuery])
 
     useEffect(() => {
