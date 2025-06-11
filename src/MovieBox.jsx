@@ -22,7 +22,7 @@ const MovieBox = (mode) => {
     // Used for fetching and processing favorites and watched movies
     // Takes in a list of movieIDs, fetches corresponding movies from TMDB
     // Replaces the movies, order, and originalOrder states
-    const fetchAndProcessMovieByIDList = async (movieIDList) => {
+    const fetchAndProcessMoviesByIDList = async (movieIDList) => {
         const fetchMovieByID = async (movieID) => {
             try {
                 const apiKey = import.meta.env.VITE_APP_API_KEY
@@ -65,7 +65,7 @@ const MovieBox = (mode) => {
     // Used for fetching and processing now-playing and searched movies
     // Takes in the page (and searchQuery) states to fetch relevant movies from TMDB
     // Replaces the movies, order, and originalOrder states
-    const fetchAndProcessMovieBySearch = async () => {
+    const fetchAndProcessMoviesBySearch = async () => {
         const buildMovieSearchURL = () => {
             return searchQuery === ""
             ? `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${page}&include_adult=false`
@@ -101,9 +101,9 @@ const MovieBox = (mode) => {
                     newOrder.push(movie.id)
                 }
             })
+            setOriginalOrder([...originalOrder, ...newOrder])
             newMovies = {...movies, ...newMovies}
             newOrder = [...order, ...newOrder]
-            setOriginalOrder([...originalOrder, ...newOrder])
             setOrder(newOrder)
             setMovies(newMovies)
         }
@@ -180,22 +180,22 @@ const MovieBox = (mode) => {
         switch (mode.mode) {
             case "now-playing":
                 if(order.length === 0 && pageCleared) {
-                    fetchAndProcessMovieBySearch()
+                    fetchAndProcessMoviesBySearch()
                     setPageCleared(false)
                 }
                 break
             case "favorites":
-                fetchAndProcessMovieByIDList(favorites)
+                fetchAndProcessMoviesByIDList(favorites)
                 break
             case "watched":
-                fetchAndProcessMovieByIDList(watched)
+                fetchAndProcessMoviesByIDList(watched)
                 break
         }
     }, [mode, pageCleared])
 
     // When Load More is pressed or searchQuery is updated
     useEffect(() => {
-        fetchAndProcessMovieBySearch();
+        fetchAndProcessMoviesBySearch();
     }, [page, searchQuery])
 
     // When sortMode is updated or movies is udpated
@@ -205,7 +205,7 @@ const MovieBox = (mode) => {
     }, [sortMode, movies])
 
     // Increments page 
-    // (note if fetchAndProcessMovieBySearch() loads last page for searchQuery, Load More button dissapeers)
+    // (note if fetchAndProcessMoviesBySearch() loads last page for searchQuery, Load More button dissapeers)
     const loadMore = () => {
         setPage( (oldPage) => {
             return oldPage + 1;
@@ -261,7 +261,7 @@ const MovieBox = (mode) => {
 
     return (
         <div className='moviebox'>
-            { mode.mode === "now-playing" ? <SearchBar searchQuery={searchQuery} searchHandler={updateSearchQuery} sortMode={sortMode} sortHandler={updateSortMode} clearHandler={handleClear}/> : null }
+            <SearchBar mode={mode.mode} searchQuery={searchQuery} searchHandler={updateSearchQuery} sortMode={sortMode} sortHandler={updateSortMode} clearHandler={handleClear}/>
             <MovieList movies={movies} order={order} favorites={favorites} watched={watched} toggleFavorite={toggleFavorite} toggleWatched={toggleWatched}/>
             { mode.mode === "now-playing" && (!Object.values(movies).length == 0 || !morePages) ? <LoadMoreBar loadMoreHandler={loadMore}/> : null }
         </div>
