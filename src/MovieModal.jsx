@@ -6,6 +6,7 @@ const MovieModal = ({movieID, closeModal}) => {
     const [trailers, setTrailers] = useState([])
     const [currentTrailer, setCurrentTrailer] = useState(0)
 
+    // Fetches movie from movieID
     const fetchMovie = async (movieID) => {
         try {
             const apiKey = import.meta.env.VITE_APP_API_KEY
@@ -28,6 +29,7 @@ const MovieModal = ({movieID, closeModal}) => {
         }
     }
 
+    // Fetches trailers from movieID
     const fetchTrailers = async (movieID) => {
         try {
             const apiKey = import.meta.env.VITE_APP_API_KEY
@@ -56,7 +58,6 @@ const MovieModal = ({movieID, closeModal}) => {
         fetchTrailers(movieID)
     }, [])
 
-    // console.log(trailers[currentTrailer].key)
     return (
         <div className='moviemodal' onClick={(e) => closeModal(e)}>
             <div className='moviemodal-content'>
