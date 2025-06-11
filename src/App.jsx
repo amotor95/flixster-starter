@@ -4,12 +4,13 @@ import SideBar from './SideBar'
 import MovieBox from './MovieBox'
 
 const App = () => {
-  // const [mode, setMode] = useState("home")
+  const [mode, setMode] = useState("home")
 
   const handleModeChange = ({newMode}) => {
     // console.log("new mode: " + newMode)
     // setMode(newMode)
   }
+  
 
   return (
     <div className="App">

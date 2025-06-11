@@ -6,11 +6,13 @@ import { useEffect, useState } from 'react'
 
 
 const MovieBox = () => {
-    const [movies, setMovies] = useState([])
+    const [movies, setMovies] = useState({})
+    const [order, setOrder] = useState([])
     const [page, setPage] = useState(1)
     const [morePages, setMorePages] = useState(true)
     const [searchQuery, setSearchQuery] = useState("")
     const [sortMode, setSortMode] = useState("none")
+
     const fetchMovies = async () => {
         try {
             const apiKey = import.meta.env.VITE_APP_API_KEY
@@ -34,8 +36,16 @@ const MovieBox = () => {
             if (data.total_pages === page) {
                 setMorePages(false)
             }
-            // console.log([...movies, ...data.results])
-            setMovies([...movies, ...data.results])
+            let newMovies = {}
+            let newOrder = []
+            data.results.map( (movie) => {
+                newMovies[movie.id] = movie
+                newOrder.push(movie.id)
+            })
+            newMovies = {...movies, ...newMovies}
+            setMovies(newMovies)
+            newOrder = [...order, ...newOrder]
+            setOrder(newOrder)
         } catch (error) {
             console.error(error)
         }
@@ -48,36 +58,35 @@ const MovieBox = () => {
         if (movies.length === 0) {
             return;
         }
-        let sortedMovies = [...movies]
+        // Split movies dict into keys (id) and values (movie)
+        let movieEntries = Object.entries(movies)
         if (sortMode === "title") {
-            sortedMovies.sort((left, right) => {
+            movieEntries.sort((left_entry, right_entry) => {
+                const left = left_entry[1]
+                const right = right_entry[1]
                 if (left.title < right.title) {return -1;}
                 if (left.title > right.title) {return 1;}
                 return 0;
             })
         } else if (sortMode === "release") {
             // Listened to feedback about shortening sorting comparator
-            // Note: can't subtract strings/titles in JS
-            sortedMovies.sort((left, right) => {
-                left.year = parseInt(left.release_date.slice(0, 4))
-                right.year = parseInt(right.release_date.slice(0, 4))
-                left.month = parseInt(left.release_date.slice(5, 7))
-                right.month = parseInt(right.release_date.slice(5, 7))
-                left.day = parseInt(left.release_date.slice(8, 10))
-                right.day = parseInt(right.release_date.slice(8, 10))
-                if (!(right.year === left.year)) {
-                    return right.year - left.year
-                } else if (!(right.month === left.month)) {
-                    return right.month - left.month
-                } else {
-                    return right.day - left.day
-                }
-                
+            // Note: can't subtract strings in JS
+            movieEntries.sort((left_entry, right_entry) => {
+                const left = left_entry[1]
+                const right = right_entry[1]
+                left.date = new Date(left.release_date)
+                right.date = new Date(right.release_date)
+                return right.date - left.date
             })
         } else if (sortMode === "vote") {
-            sortedMovies.sort((left, right) => right.vote_average-left.vote_average)
+            movieEntries.sort((left_entry, right_entry) => {
+                const left = left_entry[1]
+                const right = right_entry[1]
+                return right.vote_average-left.vote_average
+            })
         }
-        setMovies(sortedMovies)
+        const newOrder = movieEntries.map( (entry) => entry[0])
+        setOrder(newOrder)
     }
 
     useEffect(() => {
@@ -98,7 +107,7 @@ const MovieBox = () => {
     const updateSearchQuery = (term) => {
         if (!(term === searchQuery)) {
             setSortMode("none")
-            setMovies([])
+            setMovies({})
             setPage(1)
             setSearchQuery(term)
         }
@@ -116,8 +125,8 @@ const MovieBox = () => {
     return (
         <div className='moviebox'>
             <SearchBar searchQuery={searchQuery} searchHandler={updateSearchQuery} sortMode={sortMode} sortHandler={updateSortMode} clearHandler={handleClear}/>
-            <MovieList movies={movies}/>
-            { (!movies.length == 0 || !morePages) ? <LoadMoreBar loadMoreHandler={loadMore}/> : null }
+            <MovieList movies={movies} order={order}/>
+            { (!Object.values(movies).length == 0 || !morePages) ? <LoadMoreBar loadMoreHandler={loadMore}/> : null }
         </div>
     )
 }

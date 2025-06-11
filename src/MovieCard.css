@@ -4,3 +4,12 @@
     width: 20%;
     height: 40%;
 }
+
+.moviecard-clickable {
+    display: flex;
+    flex-direction: column;
+}
+
+.moviecard-clickable:hover {
+    cursor: pointer;
+}
