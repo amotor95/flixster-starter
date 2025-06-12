@@ -10,9 +10,9 @@
 }
 
 .moviemodal-content {
-    background-color: #535C91;
+    background-color: var(--martinique);
     margin: 100px auto;
-    border: 1px solid #888;
+    border: 1px solid var(--martinique);
     width: 75vw;
     max-width: 100%;
     height: 80%;
@@ -24,6 +24,7 @@
     align-items: center;
     overflow: auto;
     font-family: --lucida;
+    color: var(--gallery)
 }
 
 .moviemodal-content > * {
@@ -39,7 +40,8 @@
     margin-top: 10px;
     margin-right: 10px;
     border-radius: 9px;
-    background-color: red;
+    background-color: var(--wildblueyonder);
+    color: var(--gallery);
     transition: 0.2s;
 }
 
@@ -88,14 +90,14 @@ iframe {
 
 .trailer-select > button {
     border: none;
-    background-color: #070F2B;
+    background-color: var(--steelgray);
     transition: 0.2s;
 }
 
 .trailer-select > button:hover {
     border: none;
     border-radius: 9px;
-    background-color: #9290C3;
+    background-color: var(--wildblueyonder);
 }
 
 

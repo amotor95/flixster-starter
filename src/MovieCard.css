@@ -1,13 +1,15 @@
 .moviecard {
     display: flex;
     flex-direction: column;
-    width: 20%;
-    flex-basis: 20%;
-    border: 2px #070F2B solid;
+    width: 12%;
+    flex-basis: 12%;
+    border: 2px var(--steelgray) solid;
     border-radius: 9px;
-    background-color: #535C91;
+    background-color: var(--martinique);
+    color: var(--gallery);
     font-family: --lucida-font;
     transition: all 0.2s;
+    margin: 1px;
 }
 
 .moviecard:hover {
@@ -57,7 +59,7 @@
 }
 
 .moviecard-buttons > button {
-    background-color: #535C91;
+    background-color: var(--butterflybush);
     width: 30%;
     border-radius: 9px;
     transition: 0.2s;
@@ -69,9 +71,9 @@
 
 .moviecard-buttons > button:hover {
     scale: 105%;
-    background-color: #9290C3;
+    background-color: var(--wildblueyonder);
 }
 
 .movielist {
-    background-color: #535C91;
+    background-color: var(--butterflybush);
 }

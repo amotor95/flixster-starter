@@ -9,7 +9,7 @@
     display: flex;
     flex-direction: row;
     gap: 5%;
-    background-color: #1B1A55;
+    background-color: var(--martinique);
     width: 40%;
     justify-self: center;
     justify-content: center;
@@ -24,15 +24,16 @@
     width: 50%;
     border-radius: 9px;
     margin-left: 5px;
+    border: 3px solid var(--steelgray);
 }
 
 
 .searchbar-submit {
-    background-color: #1B1A55;
+    background-color: var(--butterflybush);
     border-radius: 8px;
     height: 30px;
     padding-bottom: 3px;
-    border: 2px white solid;
+    border: 2px var(--gallery) solid;
     transition: 0.2s;
 }
 
@@ -41,11 +42,11 @@
 } 
 
 .searchbar-clear {
-    background-color: #1B1A55;
+    background-color: var(--butterflybush);
     border-radius: 8px;
     height: 30px;
     padding-bottom: 3px;
-    border: 2px white solid;
+    border: 2px var(--gallery) solid;
     transition: 0.2s;
     margin-right: 8px;
 }
@@ -58,7 +59,7 @@
 .searchbar-sort {
     display: flex;
     flex-direction: row;
-    background-color: #1B1A55;
+    background-color: var(--martinique);
     width: 20%;
     justify-content: center;
     border-radius: 9px;
@@ -70,6 +71,6 @@
 .searchbar-sort-dropdown {
     height: 25px;
     width: 90%;
-    border: 3px solid #1B1A55;
+    border: 3px solid var(--steelgray);
     border-radius: 9px;
 }

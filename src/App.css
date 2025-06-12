@@ -3,6 +3,11 @@
 
 :root {
     --lucida-font: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    --steelgray: #1e1e2f;
+    --martinique: #2a2a4c;
+    --butterflybush: #505091;
+    --wildblueyonder: #8080bc;
+    --gallery: #f0f0f0;
 }
 
 .App {
@@ -10,7 +15,7 @@
   display: flex;
   flex-direction: row;
   width: 100%;
-  background-color: #070F2B;
+  background-color: var(--steelgray);
   min-height: 100vh;
 }
 
@@ -37,7 +42,7 @@ header {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  color: #9290C3;
+  color: var(--gallery);
 }
 
 .flixster-title {
@@ -75,7 +80,7 @@ footer {
   background-color: #1B1A55;
   position: relative;
   bottom: 0;
-  color: white;
+  color: var(--gallery);
   margin-top: auto;
 }
 

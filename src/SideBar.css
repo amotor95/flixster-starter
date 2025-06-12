@@ -18,7 +18,7 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
-    color: #9290C3;
+    color: var(--gallery);
     transition: 0.2s;
 }
 
