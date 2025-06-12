@@ -76,6 +76,7 @@ footer {
   position: relative;
   bottom: 0;
   color: white;
+  margin-top: auto;
 }
 
 @media (max-width: 600px) {

@@ -10,7 +10,7 @@
 }
 
 .moviemodal-content {
-    background-color: #888;
+    background-color: #535C91;
     margin: 100px auto;
     border: 1px solid #888;
     width: 75vw;
@@ -23,12 +23,28 @@
     justify-content: center;
     align-items: center;
     overflow: auto;
+    font-family: --lucida;
+}
+
+.moviemodal-content > * {
+    width: 100%;
 }
 
 .moviemodal-close-button {
     position: absolute;
     right: 0;
     top: 0;
+    width: 30px;
+    border: none;
+    margin-top: 10px;
+    margin-right: 10px;
+    border-radius: 9px;
+    background-color: red;
+    transition: 0.2s;
+}
+
+.moviemodal-close-button:hover {
+    scale: 125%;
 }
 
 .moviemodal-content-image {
@@ -69,6 +85,19 @@ iframe {
     justify-content: center;
     padding-bottom: 15px;
 }
+
+.trailer-select > button {
+    border: none;
+    background-color: #070F2B;
+    transition: 0.2s;
+}
+
+.trailer-select > button:hover {
+    border: none;
+    border-radius: 9px;
+    background-color: #9290C3;
+}
+
 
 .moviemodal-content-info {
     width: 80%

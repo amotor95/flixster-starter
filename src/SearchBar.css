@@ -16,6 +16,7 @@
     align-items: center;
     border-radius: 9px;
     height: 40px;
+    min-width: 400px;
 }
 
 .searchbar-input {
@@ -46,6 +47,7 @@
     padding-bottom: 3px;
     border: 2px white solid;
     transition: 0.2s;
+    margin-right: 8px;
 }
 
 .searchbar-clear:hover {
@@ -62,6 +64,7 @@
     border-radius: 9px;
     height: 35px;
     align-items: center;
+    min-width: 220px;
 }
 
 .searchbar-sort-dropdown {
