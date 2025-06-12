@@ -18,6 +18,7 @@ const MovieBox = (mode) => {
     const [favorites, setFavorites] = useState([324544, 541671])
     const [watched, setWatched] = useState([447273])
     const [pageCleared, setPageCleared] = useState(false)
+    const [searchText, setSearchText] = useState("")
 
     // Used for fetching and processing favorites and watched movies
     // Takes in a list of movieIDs, fetches corresponding movies from TMDB
@@ -169,6 +170,7 @@ const MovieBox = (mode) => {
             setSortMode("none")
             setPage(1)
             setSearchQuery("")
+            updateSearchText("")
             setPageCleared(true)
         }
     }, [mode])
@@ -230,9 +232,15 @@ const MovieBox = (mode) => {
         setSortMode(mode)
     }
 
+    // Sort mode dropdown handler
+    const updateSearchText = (text) => {
+        setSearchText(text)
+    }
+
     // Clear button handler
     const handleClear = () => {
         updateSortMode("none")
+        updateSearchText("")
         updateSearchQuery("")
     }
 
@@ -261,7 +269,7 @@ const MovieBox = (mode) => {
 
     return (
         <div className='moviebox'>
-            <SearchBar mode={mode.mode} searchQuery={searchQuery} searchHandler={updateSearchQuery} sortMode={sortMode} sortHandler={updateSortMode} clearHandler={handleClear}/>
+            <SearchBar mode={mode.mode} searchQuery={searchQuery} searchText={searchText} searchTextHandler={updateSearchText} searchHandler={updateSearchQuery} sortMode={sortMode} sortHandler={updateSortMode} clearHandler={handleClear}/>
             <MovieList movies={movies} order={order} favorites={favorites} watched={watched} toggleFavorite={toggleFavorite} toggleWatched={toggleWatched}/>
             { mode.mode === "now-playing" && (!Object.values(movies).length == 0 || !morePages) ? <LoadMoreBar loadMoreHandler={loadMore}/> : null }
         </div>

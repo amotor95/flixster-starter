@@ -15,9 +15,12 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
+    color: #9290C3;
+    transition: 0.2s;
 }
 
 .sidebar-links > a:hover {
     cursor: pointer;
     text-decoration: underline;
+    scale: 105%;
 }

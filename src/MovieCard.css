@@ -3,6 +3,21 @@
     flex-direction: column;
     width: 20%;
     flex-basis: 20%;
+    border: 2px grey solid;
+    border-radius: 9px;
+    background-color: #535C91;
+    font-family: --lucida-font;
+    transition: 0.2s;
+}
+
+.moviecard:hover {
+    scale: 105%;
+}
+
+.moviecard-image {
+    border-top-left-radius: 9px;
+    border-top-right-radius: 9px;
+    margin-bottom: 5px;
 }
 
 .moviecard-modalclickable {
@@ -10,6 +25,11 @@
     flex-direction: column;
     height: 70%;
     flex-grow: 1;
+    color: #9290C3;
+}
+
+.moviecard-modalclickable > p {
+    margin: 8px;
 }
 
 .moviecard-modalclickable:hover {
@@ -22,9 +42,26 @@
 
 .moviecard-buttons {
     position: relative;
-    bottom: 0;
+    bottom: 3px;
     display: flex;
     flex-direction: row;
-    gap: 40%;
+    gap: 30%;
     justify-content: center;
+    margin-top: 5px;
+}
+
+.moviecard-buttons > button {
+    background-color: #535C91;
+    width: 30%;
+    border-radius: 9px;
+    transition: 0.2s;
+}
+
+.moviecard-buttons > button:hover {
+    scale: 105%;
+    background-color: #9290C3;
+}
+
+.movielist {
+    background-color: #535C91;
 }

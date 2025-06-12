@@ -1,9 +1,16 @@
+:root {
+    --lucida-font: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+/* https://colorhunt.co/palette/070f2b1b1a55535c919290c3 */
+
 .App {
   text-align: center;
   display: flex;
   flex-direction: row;
   width: 100%;
   height: 100vh;
+  background-color: #070F2B;
 }
 
 .App-header {
@@ -30,6 +37,7 @@ header {
   flex-direction: column;
   align-items: center;
   width: 100%;
+  color: #9290C3;
 }
 
 .flixster-title {
