@@ -7,7 +7,7 @@
     border-radius: 9px;
     background-color: #535C91;
     font-family: --lucida-font;
-    transition: 0.2s;
+    transition: all 0.2s;
 }
 
 .moviecard:hover {

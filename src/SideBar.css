@@ -8,7 +8,7 @@
 .sidebar-image {
     object-fit: contain;
     width: 15vw;
-    height: 15vh;
+    height: 200px;
 }
 
 .sidebar-links {
