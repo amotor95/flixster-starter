@@ -1,6 +1,5 @@
 .loadmore-bar {
     width: 100%;
-    background-color: #888;
     height: 80px;
     display: flex;
     flex-direction: column;
@@ -11,4 +10,6 @@
 .loadmore-button {
     height: 40px;
     width: 160px;
+    background-color: #1B1A55;
+    border-radius: 9px;
 }

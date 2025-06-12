@@ -1,6 +1,7 @@
 import SearchBar from './SearchBar'
 import MovieList from './MovieList'
 import LoadMoreBar from './LoadMoreBar'
+import './MovieBox.css'
 import { useEffect, useState } from 'react'
 
 //review1-branch
