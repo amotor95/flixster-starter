@@ -59,8 +59,8 @@ const MovieBox = (mode) => {
                     break
             }
         }
-        const promises = movieIDList.map((movieID) => fetchMovieByID(movieID))
-        let movieData = await Promise.all(promises)
+        const moviePromises = movieIDList.map((movieID) => fetchMovieByID(movieID))
+        let movieData = await Promise.all(moviePromises)
         processMoviesByID(movieData)
     }
 
@@ -93,7 +93,6 @@ const MovieBox = (mode) => {
             }
         }
         const processMoviesBySearch = (moviesData) => {
-            console.log(moviesData)
             if (moviesData.total_pages === page) {setMorePages(false)}
             let newMovies = {}
             let newOrder = []
@@ -127,10 +126,8 @@ const MovieBox = (mode) => {
         switch (sortMode) {
             case "title":
                 movieEntries.sort((left_entry, right_entry) => {
-                    const left = left_entry[1]
-                    const right = right_entry[1]
-                    if (left.title < right.title) {return -1;}
-                    if (left.title > right.title) {return 1;}
+                    if (left_entry[1].title < right_entry[1].title) {return -1;}
+                    if (left_entry[1].title > right_entry[1].title) {return 1;}
                     return 0;
                 })
                 break;
@@ -138,25 +135,21 @@ const MovieBox = (mode) => {
                 // Listened to feedback about shortening sorting comparator
                 // Note: can't subtract strings in JS
                 movieEntries.sort((left_entry, right_entry) => {
-                    const left = left_entry[1]
-                    const right = right_entry[1]
-                    left.date = new Date(left.release_date)
-                    right.date = new Date(right.release_date)
-                    return right.date - left.date
+                    const left_date = new Date(left_entry[1].release_date)
+                    const right_date = new Date(right_entry[1].release_date)
+                    return right_date - left_date
                 })
                 break;
             case "vote":
                 movieEntries.sort((left_entry, right_entry) => {
-                    const left = left_entry[1]
-                    const right = right_entry[1]
-                    return right.vote_average-left.vote_average
+                    return right_entry[1].vote_average-left_entry[1].vote_average
                 })
                 break;
             case "none":
                 setOrder(originalOrder)
                 return;
             default:
-                console.log("Sort mode not found")
+                console.error("Sort mode not found")
                 break
         }
             const newOrder = movieEntries.map( (entry) => entry[0])
@@ -251,7 +244,6 @@ const MovieBox = (mode) => {
         let newFavorites = [...favorites]
         if (newFavorites.includes(movieID)) {
             newFavorites = newFavorites.filter( (id) => {return id !== movieID})
-            console.log(movieID)
         } else {
             newFavorites.push(movieID)
         }
