@@ -8,7 +8,8 @@ const SearchBar = ({ mode, searchQuery, searchText, searchTextHandler, searchHan
                 <div className='searchbar-searchbar'>
                     <input className='searchbar-input' onKeyDown={(e) => { if (e.key === "Enter") {searchHandler(searchText)}}} onChange={(e) => searchTextHandler(e.target.value)} value={searchText} placeholder="Search for movies..."></input>
                     <button className='searchbar-submit' onClick={() => searchHandler(searchText)}>Search</button>
-                    { !(searchQuery === "") ? <button className='searchbar-clear' onClick={() => {clearHandler()}}>Clear</button> : null }
+                    {/* { !(searchQuery === "") ? <button className='searchbar-clear' onClick={() => {clearHandler()}}>Clear</button> : null } */}
+                    <button className='searchbar-clear' onClick={() => {clearHandler()}}>Clear</button>
                 </div> : null
             }
             <div className='searchbar-sort'>

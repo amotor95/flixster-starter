@@ -4,3 +4,8 @@
     width: 100%;
     min-height: 100%;
 }
+
+.no-more-movies {
+    font-size: 30px;
+    color: var(--gallery)
+}

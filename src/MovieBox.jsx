@@ -93,6 +93,7 @@ const MovieBox = (mode) => {
             }
         }
         const processMoviesBySearch = (moviesData) => {
+            console.log(moviesData)
             if (moviesData.total_pages === page) {setMorePages(false)}
             let newMovies = {}
             let newOrder = []
@@ -267,12 +268,11 @@ const MovieBox = (mode) => {
         }
         setWatched(newWatched)
     }
-
     return (
         <div className='moviebox'>
             <SearchBar mode={mode.mode} searchQuery={searchQuery} searchText={searchText} searchTextHandler={updateSearchText} searchHandler={updateSearchQuery} sortMode={sortMode} sortHandler={updateSortMode} clearHandler={handleClear}/>
             <MovieList movies={movies} order={order} favorites={favorites} watched={watched} toggleFavorite={toggleFavorite} toggleWatched={toggleWatched}/>
-            { mode.mode === "now-playing" && (!Object.values(movies).length == 0 || !morePages) ? <LoadMoreBar loadMoreHandler={loadMore}/> : null }
+            { mode.mode === "now-playing" && !(Object.values(movies).length == 0) && morePages ? <LoadMoreBar loadMoreHandler={loadMore}/> : <p className='no-more-movies'>End of results...</p> }
         </div>
     )
 }
