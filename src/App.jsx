@@ -7,6 +7,7 @@ const App = () => {
   const [mode, setMode] = useState("now-playing")
   const [showSidebar, setShowSidebar] = useState(true)
 
+  // Sidebar links/mode change handler
   const handleModeChange = (newMode) => {
     setMode(newMode)
   }

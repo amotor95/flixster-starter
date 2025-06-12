@@ -2,7 +2,6 @@ import MovieCard from './MovieCard'
 import './MovieList.css'
 
 const MovieList = ( {movies, order, favorites, watched, toggleFavorite, toggleWatched} ) => {
-    // { mode === "now-playing" ? console.log(mode === "now-playing") : null }
     return (
         <div className="movielist">
             {  
