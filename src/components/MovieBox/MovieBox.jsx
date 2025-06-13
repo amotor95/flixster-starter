@@ -1,8 +1,10 @@
-import SearchBar from './SearchBar'
-import MovieList from './MovieList'
-import LoadMoreBar from './LoadMoreBar'
+import SearchBar from '../SearchBar/SearchBar'
+import MovieList from '../MovieList/MovieList'
+import LoadMoreBar from '../LoadMoreBar/LoadMoreBar'
 import './MovieBox.css'
 import { useEffect, useState } from 'react'
+import { movieEntriesTitleSort, movieEntriesReleaseDateSort, movieEntriesVoteAverageSort } from '../../utils/sortingUtils'
+import { fetchMovieByID, fetchMoviesBySearch } from '../../utils/apiUtils'
 
 //review1-branch
 
@@ -25,25 +27,6 @@ const MovieBox = (mode) => {
     // Takes in a list of movieIDs, fetches corresponding movies from TMDB
     // Replaces the movies, order, and originalOrder states
     const fetchAndProcessMoviesByIDList = async (movieIDList) => {
-        const fetchMovieByID = async (movieID) => {
-            try {
-                const apiKey = import.meta.env.VITE_APP_API_KEY
-                const options = {
-                    method: 'GET',
-                    headers: {
-                        accept: 'application/json',
-                        Authorization: `Bearer ${apiKey}`
-                    }
-                };
-                let response = null
-                response = await fetch(`https://api.themoviedb.org/3/movie/${movieID}?language=en-US`, options)
-                if (!response.ok) {throw new Error('Failed to fetch movie by ID')}
-                const data = await response.json()
-                return data
-            } catch (error) {
-                console.error(error)
-            }
-        }
         const processMoviesByID = (movieData) => {
             let movieDict = {}
             movieData.map((movie) => movieDict[movie.id] = movie)
@@ -68,30 +51,6 @@ const MovieBox = (mode) => {
     // Takes in the page (and searchQuery) states to fetch relevant movies from TMDB
     // Replaces the movies, order, and originalOrder states
     const fetchAndProcessMoviesBySearch = async () => {
-        const buildMovieSearchURL = () => {
-            return searchQuery === ""
-            ? `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${page}&include_adult=false`
-            :`https://api.themoviedb.org/3/search/movie?query=${searchQuery}&include_adult=false&language=en-US&page=${page}`
-        }
-        const fetchMoviesBySearch = async () => {
-            try {
-                const apiKey = import.meta.env.VITE_APP_API_KEY
-                const options = {
-                    method: 'GET',
-                    headers: {
-                        accept: 'application/json',
-                        Authorization: `Bearer ${apiKey}`
-                    }
-                };
-                const searchURL = buildMovieSearchURL()
-                let response = await fetch(searchURL, options)
-                if (!response.ok) {throw new Error('Failed to fetch movies by search')}
-                const data = await response.json()
-                return data
-            } catch (error) {
-                console.error(error)
-            }
-        }
         const processMoviesBySearch = (moviesData) => {
             if (moviesData.total_pages === page) {setMorePages(false)}
             let newMovies = {}
@@ -110,7 +69,7 @@ const MovieBox = (mode) => {
             setMovies(newMovies)
         }
 
-        let moviesData = await fetchMoviesBySearch()
+        let moviesData = await fetchMoviesBySearch(page, searchQuery)
         processMoviesBySearch(moviesData)
     }
 
@@ -125,25 +84,13 @@ const MovieBox = (mode) => {
         // Listened to feedback about using switch/case for repeated if/else if or where it's easier to read
         switch (sortMode) {
             case "title":
-                movieEntries.sort((left_entry, right_entry) => {
-                    if (left_entry[1].title < right_entry[1].title) {return -1;}
-                    if (left_entry[1].title > right_entry[1].title) {return 1;}
-                    return 0;
-                })
+                movieEntriesTitleSort(movieEntries)
                 break;
             case "release":
-                // Listened to feedback about shortening sorting comparator
-                // Note: can't subtract strings in JS
-                movieEntries.sort((left_entry, right_entry) => {
-                    const left_date = new Date(left_entry[1].release_date)
-                    const right_date = new Date(right_entry[1].release_date)
-                    return right_date - left_date
-                })
+                movieEntriesReleaseDateSort(movieEntries)
                 break;
             case "vote":
-                movieEntries.sort((left_entry, right_entry) => {
-                    return right_entry[1].vote_average-left_entry[1].vote_average
-                })
+                movieEntriesVoteAverageSort(movieEntries)
                 break;
             case "none":
                 setOrder(originalOrder)
@@ -168,6 +115,7 @@ const MovieBox = (mode) => {
             updateSearchText("")
             setPageCleared(true)
         }
+        setSortMode("none")
     }, [mode])
 
     // Uses the mode change as a trigger to grab the relevant movies for new mode

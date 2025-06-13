@@ -1,6 +1,6 @@
-import MovieCard from './MovieCard'
+import MovieCard from '../MovieCard/MovieCard'
 import './MovieList.css'
-import MovieModal from './MovieModal'
+import MovieModal from '../MovieModal/MovieModal'
 import { useState } from 'react'
 
 const MovieList = ( {movies, order, favorites, watched, toggleFavorite, toggleWatched} ) => {

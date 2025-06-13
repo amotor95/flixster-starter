@@ -1,6 +1,6 @@
 import './MovieCard.css'
 import { useState } from 'react'
-import MovieModal from './MovieModal'
+import MovieModal from '../MovieModal/MovieModal'
 import { BsEyeSlash, BsEyeFill } from "react-icons/bs";
 import { FaStar, FaRegStar } from "react-icons/fa";
 
