@@ -52,6 +52,8 @@ header {
 
 .banner {
   font-size: 30px;
+  border: 2px var(--gallery) solid;
+  width: 80%;
 }
 
 .header-image {
