@@ -19,6 +19,11 @@
     min-width: 400px;
 }
 
+input::placeholder {
+    color: black;
+    opacity: 0.8
+}
+
 .searchbar-input {
     height: 20px;
     width: 50%;
