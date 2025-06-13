@@ -10,6 +10,7 @@
     font-family: --lucida-font;
     transition: all 0.2s;
     margin: 1px;
+    min-width: 90px;
 }
 
 .moviecard:hover {
