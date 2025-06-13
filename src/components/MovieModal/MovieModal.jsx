@@ -1,61 +1,26 @@
 import './MovieModal.css'
 import { useState, useEffect } from 'react'
+import { fetchMovieByID, fetchMovieVideosByID } from '../../utils/apiUtils'
 
 const MovieModal = ({movieID, closeModal}) => {
     const [movie, setMovie] = useState({})
     const [trailers, setTrailers] = useState([])
     const [currentTrailer, setCurrentTrailer] = useState(0)
 
-    // Fetches movie from movieID
-    const fetchMovie = async (movieID) => {
-        try {
-            const apiKey = import.meta.env.VITE_APP_API_KEY
-            const options = {
-                method: 'GET',
-                headers: {
-                    accept: 'application/json',
-                    Authorization: `Bearer ${apiKey}`
-                }
-            };
-            let response = null
-            response = await fetch(`https://api.themoviedb.org/3/movie/${movieID}`, options)
-            if (!response.ok) {
-                throw new Error('Failed to fetch movies')
-            }
-            const data = await response.json()
-            setMovie(data)
-        } catch (error) {
-            console.error(error)
-        }
+    const fetchAndProcessMovieDetails = async (movieID) => {
+        const movieDetails = await fetchMovieByID(movieID)
+        setMovie(movieDetails)
     }
 
-    // Fetches trailers from movieID
-    const fetchTrailers = async (movieID) => {
-        try {
-            const apiKey = import.meta.env.VITE_APP_API_KEY
-            const options = {
-                method: 'GET',
-                headers: {
-                    accept: 'application/json',
-                    Authorization: `Bearer ${apiKey}`
-                }
-            };
-            let response = null
-            response = await fetch(`https://api.themoviedb.org/3/movie/${movieID}/videos?language=en-US`, options)
-            if (!response.ok) {
-                throw new Error('Failed to fetch videos')
-            }
-            const data = await response.json()
-            const trailers = data.results.filter( (video) => {return video.type === "Trailer"})
-            setTrailers(trailers)
-        } catch (error) {
-            console.error(error)
-        }
+    const fetchAndProcessMovieTrailers = async (movieID) => {
+        const movieVideos = await fetchMovieVideosByID(movieID)
+        const trailers = movieVideos.results.filter( (video) => {return video.type === "Trailer"})
+        setTrailers(trailers)
     }
 
     useEffect( () => {
-        fetchMovie(movieID)
-        fetchTrailers(movieID)
+        fetchAndProcessMovieDetails(movieID)
+        fetchAndProcessMovieTrailers(movieID)
     }, [])
 
     return (
