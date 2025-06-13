@@ -1,13 +1,25 @@
+/* https://colorhunt.co/palette/070f2b1b1a55535c919290c3 */
+
+
+:root {
+    --lucida-font: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    --steelgray: #1e1e2f;
+    --martinique: #2a2a4c;
+    --butterflybush: #505091;
+    --wildblueyonder: #8080bc;
+    --gallery: #f0f0f0;
+}
+
 .App {
   text-align: center;
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: 100vh;
+  background-color: var(--steelgray);
+  min-height: 100vh;
 }
 
 .App-header {
-  background-color: #282c34;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -30,6 +42,7 @@ header {
   flex-direction: column;
   align-items: center;
   width: 100%;
+  color: var(--gallery);
 }
 
 .flixster-title {
@@ -53,19 +66,22 @@ header {
 .content {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  width: 80%;
 }
 
 main {
   display: flex;
   flex-direction: row;
+  width: 100%;
 }
 
 footer {
   width: 100%;
-  background-color: #888;
+  background-color: #1B1A55;
   position: relative;
   bottom: 0;
+  color: var(--gallery);
+  margin-top: auto;
 }
 
 @media (max-width: 600px) {

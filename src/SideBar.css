@@ -2,22 +2,28 @@
     display: flex;
     flex-direction: column;
     gap: 40px;
-    width: 30%;
+    width: 20%;
+    margin-top: 30px;
+    gap: 50px;
 }
 
 .sidebar-image {
     object-fit: contain;
     width: 15vw;
-    height: 15vh;
+    height: 200px;
+    align-self: center;
 }
 
 .sidebar-links {
     display: flex;
     flex-direction: column;
     gap: 30px;
+    color: var(--gallery);
+    transition: 0.2s;
 }
 
 .sidebar-links > a:hover {
     cursor: pointer;
     text-decoration: underline;
+    scale: 105%;
 }

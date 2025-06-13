@@ -1,6 +1,7 @@
 import SearchBar from './SearchBar'
 import MovieList from './MovieList'
 import LoadMoreBar from './LoadMoreBar'
+import './MovieBox.css'
 import { useEffect, useState } from 'react'
 
 //review1-branch
@@ -18,6 +19,7 @@ const MovieBox = (mode) => {
     const [favorites, setFavorites] = useState([324544, 541671])
     const [watched, setWatched] = useState([447273])
     const [pageCleared, setPageCleared] = useState(false)
+    const [searchText, setSearchText] = useState("")
 
     // Used for fetching and processing favorites and watched movies
     // Takes in a list of movieIDs, fetches corresponding movies from TMDB
@@ -57,8 +59,8 @@ const MovieBox = (mode) => {
                     break
             }
         }
-        const promises = movieIDList.map((movieID) => fetchMovieByID(movieID))
-        let movieData = await Promise.all(promises)
+        const moviePromises = movieIDList.map((movieID) => fetchMovieByID(movieID))
+        let movieData = await Promise.all(moviePromises)
         processMoviesByID(movieData)
     }
 
@@ -124,10 +126,8 @@ const MovieBox = (mode) => {
         switch (sortMode) {
             case "title":
                 movieEntries.sort((left_entry, right_entry) => {
-                    const left = left_entry[1]
-                    const right = right_entry[1]
-                    if (left.title < right.title) {return -1;}
-                    if (left.title > right.title) {return 1;}
+                    if (left_entry[1].title < right_entry[1].title) {return -1;}
+                    if (left_entry[1].title > right_entry[1].title) {return 1;}
                     return 0;
                 })
                 break;
@@ -135,25 +135,21 @@ const MovieBox = (mode) => {
                 // Listened to feedback about shortening sorting comparator
                 // Note: can't subtract strings in JS
                 movieEntries.sort((left_entry, right_entry) => {
-                    const left = left_entry[1]
-                    const right = right_entry[1]
-                    left.date = new Date(left.release_date)
-                    right.date = new Date(right.release_date)
-                    return right.date - left.date
+                    const left_date = new Date(left_entry[1].release_date)
+                    const right_date = new Date(right_entry[1].release_date)
+                    return right_date - left_date
                 })
                 break;
             case "vote":
                 movieEntries.sort((left_entry, right_entry) => {
-                    const left = left_entry[1]
-                    const right = right_entry[1]
-                    return right.vote_average-left.vote_average
+                    return right_entry[1].vote_average-left_entry[1].vote_average
                 })
                 break;
             case "none":
                 setOrder(originalOrder)
                 return;
             default:
-                console.log("Sort mode not found")
+                console.error("Sort mode not found")
                 break
         }
             const newOrder = movieEntries.map( (entry) => entry[0])
@@ -169,6 +165,7 @@ const MovieBox = (mode) => {
             setSortMode("none")
             setPage(1)
             setSearchQuery("")
+            updateSearchText("")
             setPageCleared(true)
         }
     }, [mode])
@@ -230,9 +227,15 @@ const MovieBox = (mode) => {
         setSortMode(mode)
     }
 
+    // Sort mode dropdown handler
+    const updateSearchText = (text) => {
+        setSearchText(text)
+    }
+
     // Clear button handler
     const handleClear = () => {
         updateSortMode("none")
+        updateSearchText("")
         updateSearchQuery("")
     }
 
@@ -241,7 +244,6 @@ const MovieBox = (mode) => {
         let newFavorites = [...favorites]
         if (newFavorites.includes(movieID)) {
             newFavorites = newFavorites.filter( (id) => {return id !== movieID})
-            console.log(movieID)
         } else {
             newFavorites.push(movieID)
         }
@@ -258,12 +260,11 @@ const MovieBox = (mode) => {
         }
         setWatched(newWatched)
     }
-
     return (
         <div className='moviebox'>
-            <SearchBar mode={mode.mode} searchQuery={searchQuery} searchHandler={updateSearchQuery} sortMode={sortMode} sortHandler={updateSortMode} clearHandler={handleClear}/>
+            <SearchBar mode={mode.mode} searchQuery={searchQuery} searchText={searchText} searchTextHandler={updateSearchText} searchHandler={updateSearchQuery} sortMode={sortMode} sortHandler={updateSortMode} clearHandler={handleClear}/>
             <MovieList movies={movies} order={order} favorites={favorites} watched={watched} toggleFavorite={toggleFavorite} toggleWatched={toggleWatched}/>
-            { mode.mode === "now-playing" && (!Object.values(movies).length == 0 || !morePages) ? <LoadMoreBar loadMoreHandler={loadMore}/> : null }
+            { mode.mode === "now-playing" && !(Object.values(movies).length == 0) && morePages ? <LoadMoreBar loadMoreHandler={loadMore}/> : <p className='no-more-movies'>End of results...</p> }
         </div>
     )
 }
