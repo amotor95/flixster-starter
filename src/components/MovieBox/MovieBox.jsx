@@ -1,6 +1,6 @@
-import SearchBar from './SearchBar'
-import MovieList from './MovieList'
-import LoadMoreBar from './LoadMoreBar'
+import SearchBar from '../SearchBar/SearchBar'
+import MovieList from '../MovieList/MovieList'
+import LoadMoreBar from '../LoadMoreBar/LoadMoreBar'
 import './MovieBox.css'
 import { useEffect, useState } from 'react'
 

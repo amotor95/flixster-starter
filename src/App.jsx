@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
-import SideBar from './SideBar'
-import MovieBox from './MovieBox'
+import SideBar from './components/SideBar/SideBar'
+import MovieBox from './components/MovieBox/MovieBox'
 
 const App = () => {
   const [mode, setMode] = useState("now-playing")
