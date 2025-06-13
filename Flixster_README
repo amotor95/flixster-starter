@@ -90,7 +90,7 @@ Deployed Application (**required**): [Flixster Deployed Site](https://flixster-s
   - [X] If the movie is already watched:
     - [X] Clicking on the visual element should mark the movie as *not* watched.
     - [X] There should be visual feedback (such as the eye turning a different color) to show that the movie has not been watched.
-- [ ] **Sidebar**
+- [X] **Sidebar**
   - [X] The website includes a side navigation bar.
   - [X] The sidebar has three pages:
     - [X] Home
@@ -110,15 +110,15 @@ Deployed Application (**required**): [Flixster Deployed Site](https://flixster-s
 
 * Did the topics discussed in your labs prepare you to complete the assignment? Be specific, which features in your weekly assignment did you feel unprepared to complete?
 
-Add your response here
+Yes, the useState and prop drilling labs definitely helped me feel prepared to complete the assignment, however, I would say that the useEffect lessons didn't prepare us enough to deal with race conditions in the project. I also felt unprepared to complete the API pulling and async functions because the labs didn't cover tricky situations with await/async and where we could use each kind of function.
 
 * If you had more time, what would you have done differently? Would you have added additional features? Changed the way your project responded to a particular event, etc.
   
-Add your response here
+If I had more time, I would've added a search bar the could search in the favorites and watched, but that would be more difficult because there isn't an API for it. I also would've used TMDB to store my watched/favorites list so it could be persistant even after page reloads.
 
 * Reflect on your project demo, what went well? Were there things that maybe didn't go as planned? Did you notice something that your peer did that you would like to try next time?
 
-Add your response here
+Didn't demo this week (I already demoed last week). Next week, I would like to try adding color gradients for my CSS styling and more reactive color changes.
 
 ### Open-source libraries used
 
@@ -127,3 +127,4 @@ Add your response here
 ### Shout out
 
 Give a shout out to somebody from your cohort that especially helped you during your project. This can be a fellow peer, instructor, TA, mentor, etc.
+Shoutout to Liam Bremm for providing helpful feedback on CSS styling.
